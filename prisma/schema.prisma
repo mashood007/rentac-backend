@@ -11,9 +11,36 @@ datasource db {
 }
 
 model Brand {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
   description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  CarModel    CarModel[]
+}
+
+model CarModel {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  brandId     Int
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  bodyType    BodyType @default(SUV)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+enum BodyType {
+  SUV
+  COUPE
+  SEDAN
+  HATCHBACK
+  CROSSOVER
+  MINIVAN
+}
+
+// type Photo {
+//   height Int
+//   width  Int
+//   url    String
+// }
