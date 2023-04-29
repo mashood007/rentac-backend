@@ -16,14 +16,17 @@ export class CarModelsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} carModel`;
+    return this.prisma.carModel.findUnique({ where: { id } });
   }
 
   update(id: number, updateCarModelDto: UpdateCarModelDto) {
-    return `This action updates a #${id} carModel`;
+    return this.prisma.carModel.update({
+      where: { id },
+      data: updateCarModelDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} carModel`;
+    return this.prisma.carModel.delete({ where: { id } });
   }
 }

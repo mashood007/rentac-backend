@@ -17,6 +17,7 @@ model Brand {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   CarModel    CarModel[]
+  car         Car[]
 }
 
 model CarModel {
@@ -28,8 +29,24 @@ model CarModel {
   bodyType    BodyType @default(SUV)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  car         Car[]
 }
 
+model Car {
+  id          Int      @id @default(autoincrement())
+  description String?
+  year        Int
+  kilometers  Int
+  color       String
+  fuelType    FuelType @default(petrol)
+  horsePower  Json?
+  brandId     Int
+  carModelId  Int
+  carModel    CarModel @relation(fields: [carModelId], references: [id])
+  brand       Brand    @relation(fields: [brandId], references: [id])
+}
+
+// Enums
 enum BodyType {
   SUV
   COUPE
@@ -38,6 +55,20 @@ enum BodyType {
   CROSSOVER
   MINIVAN
 }
+
+enum FuelType {
+  petrol
+  diesel
+  hybrid
+  electric
+  other
+}
+
+// Types
+// type HorsePower {
+//   min Int
+//   Max Int
+// }
 
 // type Photo {
 //   height Int
