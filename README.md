@@ -32,6 +32,16 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+# migrations
+$ npx prisma migrate dev --name "description"
+
+# seed / preload data
+$ npx prisma db seed
+
+# generators
+# resource
+$ npx nest generate resource
 ```
 
 ## Stack

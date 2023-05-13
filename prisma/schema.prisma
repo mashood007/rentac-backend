@@ -46,6 +46,14 @@ model Car {
   brand       Brand    @relation(fields: [brandId], references: [id])
 }
 
+model AdminUser {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // Enums
 enum BodyType {
   SUV

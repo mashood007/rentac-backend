@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { BrandEntity } from './entities/brand.entity'
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller()
 @ApiTags('brands')
@@ -16,6 +17,8 @@ export class BrandsController {
     return this.brandsService.create(createBrandDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get()
   @ApiCreatedResponse({ type: BrandEntity, isArray: true })
   findAll() {

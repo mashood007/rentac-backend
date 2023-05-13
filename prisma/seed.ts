@@ -24,7 +24,20 @@ async function main() {
   });
 
   console.log({ brand1, brand2 });
+
+
+  const adminUser = await prisma.adminUser.upsert({
+    where: { email: 'admin@test.com' },
+    update: {},
+    create: {
+      email: 'admin@test.com',
+      password: 'admin123'
+    },
+  });
+
+  console.log('admin =>', adminUser.email)
 }
+
 
 // execute the main function
 main()
