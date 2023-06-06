@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AdminModule } from './admin/admin.module';
 import { RouterModule } from '@nestjs/core';
 import { AdminRoutes } from './admin/admin.routes';
+import { AdminChatGateway } from './admin-chat/admin-chat.gateway';
 
 @Module({
   imports: [PrismaModule,
@@ -20,6 +21,6 @@ import { AdminRoutes } from './admin/admin.routes';
     ]),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AdminChatGateway],
 })
 export class AppModule { }

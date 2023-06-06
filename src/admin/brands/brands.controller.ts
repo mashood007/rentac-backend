@@ -8,6 +8,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller()
 @ApiTags('brands')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) { }
 
@@ -17,8 +19,6 @@ export class BrandsController {
     return this.brandsService.create(createBrandDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @Get()
   @ApiCreatedResponse({ type: BrandEntity, isArray: true })
   findAll() {

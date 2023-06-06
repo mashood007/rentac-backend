@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AdminUsersService } from './admin_users.service';
 import { CreateAdminUserDto } from './dto/create-admin_user.dto';
 import { UpdateAdminUserDto } from './dto/update-admin_user.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@Controller('admin-users')
+@Controller('')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
+@ApiTags('admin users')
 export class AdminUsersController {
-  constructor(private readonly adminUsersService: AdminUsersService) {}
+  constructor(private readonly adminUsersService: AdminUsersService) { }
 
   @Post()
   create(@Body() createAdminUserDto: CreateAdminUserDto) {
